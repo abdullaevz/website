@@ -1,0 +1,713 @@
+<!DOCTYPE html>
+<html lang="az">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Najms Systems – IT Solutions | Innovation</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet"/>
+<style>
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+  :root{
+    --navy:#0b1628;
+    --navy2:#0f1e38;
+    --navy3:#162645;
+    --accent:#4f9cf9;
+    --accent2:#a8d4ff;
+    --gold:#c8a96e;
+    --text:#e8edf5;
+    --text2:#9aadc8;
+    --text3:#5f7899;
+    --border:rgba(79,156,249,0.15);
+    --card:rgba(22,38,69,0.6);
+  }
+  html{scroll-behavior:smooth}
+  body{
+    background:var(--navy);
+    color:var(--text);
+    font-family:'Inter', sans-serif;
+    font-size:16px;
+    line-height:1.7;
+    overflow-x:hidden;
+  }
+
+  /* ── ALERT POPUP ── */
+  .form-alert-popup {
+    position: fixed;
+    top: 30px;
+    left: 50%;
+    transform: translateX(-50%) translateY(-20px);
+    background: rgba(200, 169, 110, 0.15);
+    color: var(--gold);
+    border: 1px solid rgba(200, 169, 110, 0.4);
+    padding: 16px 24px;
+    border-radius: 12px;
+    font-size: 0.95rem;
+    font-weight: 500;
+    text-align: center;
+    max-width: 90%;
+    width: 500px;
+    z-index: 9999;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), 0 0 15px rgba(200, 169, 110, 0.15);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.4s ease, transform 0.4s ease;
+  }
+  .form-alert-popup.show {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateX(-50%) translateY(0);
+  }
+
+  /* ── NAVBAR (RESPONSIVE) ── */
+  nav{
+    position:fixed;top:0;left:0;right:0;z-index:100;
+    display:flex;align-items:center;justify-content:space-between;
+    padding:0 5%;
+    height:70px;
+    background:rgba(11,22,40,0.85);
+    backdrop-filter:blur(12px);
+    border-bottom:1px solid var(--border);
+    transition:background .3s;
+  }
+  .nav-logo{display:flex;align-items:center;gap:12px;text-decoration:none;flex-shrink:0}
+  .nav-logo-icon{width:36px;height:36px}
+  .nav-logo-text{font-family:'Plus Jakarta Sans',sans-serif;font-size:1.1rem;font-weight:700;color:var(--text);letter-spacing:.02em}
+  .nav-logo-text span{color:var(--accent)}
+  
+  .nav-right-container {
+    display: flex;
+    align-items: center;
+    gap: 2.5rem;
+  }
+  .nav-links{display:flex;gap:2rem;list-style:none}
+  .nav-links a{
+    text-decoration:none;color:var(--text2);font-size:.9rem;font-weight:500;
+    letter-spacing:.03em;position:relative;padding-bottom:3px;
+    transition:color .25s;
+  }
+  .nav-links a::after{
+    content:'';position:absolute;bottom:0;left:0;width:0;height:1.5px;
+    background:var(--accent);transition:width .3s;
+  }
+  .nav-links a:hover{color:var(--accent)}
+  .nav-links a:hover::after{width:100%}
+
+  /* LANGUAGE SWITCHER */
+  .lang-switcher {
+    display: flex;
+    gap: 4px;
+    background: rgba(22, 38, 69, 0.6);
+    border: 1px solid var(--border);
+    padding: 4px;
+    border-radius: 8px;
+    flex-shrink: 0;
+  }
+  .lang-btn {
+    background: transparent;
+    border: none;
+    color: var(--text2);
+    font-size: 0.8rem;
+    font-weight: 600;
+    padding: 6px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    text-transform: uppercase;
+  }
+  .lang-btn:hover { color: var(--text); }
+  .lang-btn.active {
+    background: var(--accent);
+    color: #fff;
+  }
+
+  /* Tablet & Mobil Navigasyon Uyumu */
+  @media(max-width: 768px) {
+    nav { height: auto; padding: 12px 4%; flex-direction: column; gap: 12px; text-align: center; }
+    .nav-right-container { width: 100%; justify-content: stroke; gap: 1rem; flex-wrap: wrap; justify-content: center; }
+    .nav-links { gap: 1.2rem; }
+    .nav-links a { font-size: 0.85rem; }
+  }
+  @media(max-width: 480px) {
+    .nav-links { gap: 0.8rem; }
+    .nav-logo-text { font-size: 0.95rem; }
+  }
+
+  /* ── HERO ── */
+  #home{
+    min-height:100vh;
+    display:flex;flex-direction:column;
+    align-items:center;justify-content:center;
+    position:relative;overflow:hidden;
+    padding:140px 5% 80px;
+    text-align:center;
+  }
+  .hero-bg{
+    position:absolute;inset:0;z-index:0;
+    background:radial-gradient(ellipse 70% 60% at 50% 40%,rgba(79,156,249,0.08) 0%,transparent 70%),
+               radial-gradient(ellipse 40% 40% at 70% 20%,rgba(200,169,110,0.06) 0%,transparent 60%),
+               var(--navy);
+  }
+  .stars{position:absolute;inset:0;z-index:1;pointer-events:none}
+  .star{
+    position:absolute;border-radius:50%;background:#fff;
+    animation:twinkle var(--d,3s) ease-in-out infinite var(--del,0s);
+    opacity:0;
+  }
+  @keyframes twinkle{
+    0%,100%{opacity:0;transform:scale(1)}
+    50%{opacity:var(--op,.8);transform:scale(1.5)}
+  }
+
+  .hero-orbital{
+    position:relative;z-index:2;
+    width:180px;height:180px;margin-bottom:2rem;
+    max-width: 100%;
+    animation:float 6s ease-in-out infinite;
+    filter:drop-shadow(0 0 24px rgba(79,156,249,0.35)) drop-shadow(0 0 8px rgba(200,169,110,0.2));
+  }
+  @keyframes float{
+    0%,100%{transform:translateY(0)}
+    50%{transform:translateY(-14px)}
+  }
+  .orbital-ring{
+    fill:none;
+    stroke-linecap:round;
+    animation:orbitSpin var(--spd,12s) linear infinite var(--rev,normal);
+  }
+  @keyframes orbitSpin{from{transform:rotate(0deg);transform-origin:110px 110px}to{transform:rotate(360deg);transform-origin:110px 110px}}
+
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    max-width: 680px;
+    width: 100%;
+    margin: 0 auto;
+  }
+  .hero-eyebrow{
+    font-size:.8rem;font-weight:600;letter-spacing:.15em;text-transform:uppercase;
+    color:var(--accent);margin-bottom:1.2rem;
+    animation:fadeUp .8s ease both .2s;
+  }
+  .hero-title{
+    font-family:'Plus Jakarta Sans', sans-serif;
+    font-size: clamp(2rem, 5vw, 3.4rem);
+    font-weight: 700;
+    line-height: 1.25;
+    letter-spacing: -0.02em;
+    margin-bottom: 1.5rem;
+    animation:fadeUp .8s ease both .35s;
+  }
+  .hero-title .star-word{color:var(--accent)}
+  .hero-title .gold-word{color:var(--gold)}
+  .hero-sub{
+    font-size: clamp(0.95rem, 2vw, 1.05rem);
+    color:var(--text2);max-width:540px;margin:0 auto 2.5rem;
+    line-height:1.6;
+    animation:fadeUp .8s ease both .5s;
+  }
+  .hero-cta{
+    display:inline-flex;align-items:center;gap:10px;
+    background:var(--accent);color:#fff;
+    font-weight:600;font-size:.9rem;letter-spacing:.03em;
+    padding:14px 32px;border-radius:100px;border:none;cursor:pointer;
+    text-decoration:none;
+    transition:background .25s,transform .2s,box-shadow .25s;
+    animation:fadeUp .8s ease both .65s;
+  }
+  .hero-cta:hover{background:#3b8ef5;transform:translateY(-2px);box-shadow:0 8px 30px rgba(79,156,249,0.35)}
+
+  @keyframes fadeUp{
+    from{opacity:0;transform:translateY(24px)}
+    to{opacity:1;transform:translateY(0)}
+  }
+
+  /* ── SECTION SHARED ── */
+  section{padding:80px 5%; max-width:1300px; margin:0 auto; width: 100%;}
+  .section-eyebrow{
+    font-size:.75rem;font-weight:600;letter-spacing:.15em;text-transform:uppercase;
+    color:var(--accent);margin-bottom:.8rem;text-align:center;
+  }
+  .section-title{
+    font-family:'Plus Jakarta Sans', sans-serif;
+    font-size: clamp(1.6rem, 4vw, 2.4rem);
+    font-weight: 700;
+    line-height: 1.3;
+    letter-spacing: -0.01em;
+    margin-bottom: 1rem;
+    text-align: center;
+  }
+  .section-lead{color:var(--text2);max-width:600px;font-size:1rem;margin:0 auto 3rem;text-align:center;line-height:1.6}
+  .divider{width:48px;height:2px;background:var(--accent);margin:0 auto 2rem;border-radius:2px}
+
+  /* ── SERVICES (RESPONSIVE GRID) ── */
+  #services{background:var(--navy2); max-width:100%; padding:80px 5%;}
+  .services-inner {max-width:1200px; margin:0 auto;}
+  .services-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+    gap:24px;
+  }
+  @media (max-width: 480px) {
+    .services-grid { grid-template-columns: 1fr; }
+  }
+  .service-card{
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:16px;
+    padding:2.2rem 2rem;
+    transition:transform .3s,border-color .3s,box-shadow .3s;
+    position:relative;overflow:hidden;
+  }
+  .service-card::before{
+    content:'';position:absolute;top:0;left:0;right:0;height:2px;
+    background:linear-gradient(90deg,var(--accent),var(--gold));
+    opacity:0;transition:opacity .3s;
+  }
+  .service-card:hover{transform:translateY(-6px);border-color:rgba(79,156,249,.4);box-shadow:0 12px 40px rgba(0,0,0,.3)}
+  .service-card:hover::before{opacity:1}
+  .service-icon{
+    width:50px;height:50px;border-radius:12px;
+    background:rgba(79,156,249,0.12);
+    display:flex;align-items:center;justify-content:center;
+    margin-bottom:1.4rem;
+  }
+  .service-icon svg{width:24px;height:24px;stroke:var(--accent)}
+  .service-card h3{
+    font-family:'Plus Jakarta Sans', sans-serif;
+    font-size:1.1rem;font-weight:600;margin-bottom:.8rem;color:var(--text);
+  }
+  .service-card p{font-size:.92rem;color:var(--text2);line-height:1.6}
+
+  /* ── CONTACT (RESPONSIVE GRID) ── */
+  #contact{background:var(--navy); max-width:1200px;}
+  .contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:start;margin-top:1rem}
+  @media(max-width:900px){.contact-grid{grid-template-columns:1fr;gap:3rem}}
+  .contact-info p{color:var(--text2);margin-bottom:2.5rem;font-size:.95rem;line-height:1.6}
+  .contact-detail{display:flex;align-items:center;gap:14px;margin-bottom:1.5rem}
+  .contact-detail-icon{
+    width:42px;height:42px;border-radius:10px;
+    background:rgba(79,156,249,0.1);border:1px solid var(--border);
+    display:flex;align-items:center;justify-content:center;flex-shrink:0;
+  }
+  .contact-detail-icon svg{width:20px;height:20px;stroke:var(--accent)}
+  .contact-detail-text{font-size:.9rem}
+  .contact-detail-text strong{display:block;color:var(--text);font-weight:600;font-size:.82rem;text-transform:uppercase;letter-spacing:.08em;margin-bottom:2px}
+  .contact-detail-text span{color:var(--text2); word-break: break-all;}
+  
+  .contact-form{display:flex;flex-direction:column;gap:20px; width: 100%;}
+  .form-row{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  @media(max-width:550px){.form-row{grid-template-columns:1fr}}
+  .form-group{display:flex;flex-direction:column;gap:8px}
+  .form-group label{font-size:.78rem;font-weight:600;color:var(--text2);letter-spacing:.05em;text-transform:uppercase}
+  .form-group input,.form-group textarea,.form-group select{
+    background:rgba(22,38,69,0.8);
+    border:1px solid var(--border);
+    border-radius:10px;
+    padding:14px 16px;
+    color:var(--text);
+    font-family:'Inter',sans-serif;
+    font-size:.9rem;
+    outline:none;
+    width: 100%;
+  }
+  .form-group select option{background:var(--navy2);color:var(--text)}
+  .btn-submit{
+    background:var(--accent);color:#fff;border:none;
+    font-weight:600;font-size:.9rem;letter-spacing:.03em;
+    padding:15px 32px;border-radius:100px;cursor:pointer;
+    transition:background .25s,transform .2s;
+    align-self:flex-start;
+  }
+  @media(max-width:550px){ .btn-submit { width: 100%; text-align: center; } }
+  .btn-submit:hover{background:#3b8ef5;transform:translateY(-2px)}
+
+  /* ── FOOTER (RESPONSIVE) ── */
+  footer{
+    background:var(--navy2);
+    border-top:1px solid var(--border);
+    padding:60px 5% 30px;
+  }
+  .footer-inner { max-width:1200px; margin:0 auto; }
+  .footer-grid{
+    display:grid;
+    grid-template-columns:2fr 1fr 1fr 1fr;
+    gap:2.5rem;margin-bottom:3.5rem;
+  }
+  @media(max-width:960px){.footer-grid{grid-template-columns:1fr 1fr}}
+  @media(max-width:480px){.footer-grid{grid-template-columns:1fr; gap:2rem}}
+  .footer-brand p{color:var(--text2);font-size:.88rem;margin:1rem 0 1.5rem;max-width:280px;line-height:1.6}
+  .footer-social{display:flex;gap:12px}
+  .footer-social a{
+    width:38px;height:38px;border-radius:8px;
+    background:rgba(79,156,249,0.08);border:1px solid var(--border);
+    display:flex;align-items:center;justify-content:center;
+  }
+  .footer-social svg{width:18px;height:18px;stroke:var(--text2)}
+  .footer-col h4{
+    font-family:'Plus Jakarta Sans', sans-serif;
+    font-size:.78rem;font-weight:600;text-transform:uppercase;
+    letter-spacing:.1em;color:var(--text);margin-bottom:1.2rem;
+  }
+  .footer-col ul { list-style:none; }
+  .footer-col ul li{margin-bottom:.7rem}
+  .footer-col ul li a{color:var(--text2);font-size:.88rem;text-decoration:none}
+  .footer-col ul li a:hover{color:var(--accent)}
+  
+  .footer-bottom{
+    border-top:1px solid var(--border);
+    padding-top:2rem;
+    display:flex;flex-wrap:wrap;gap:1.5rem;
+    justify-content:space-between;align-items:center;
+  }
+  @media(max-width:600px){ .footer-bottom { flex-direction: column; text-align: center; } }
+  .footer-bottom p{font-size:.82rem;color:var(--text3)}
+  .footer-legal{display:flex;gap:1.5rem;flex-wrap: wrap;justify-content: center;}
+  .footer-legal a{font-size:.82rem;color:var(--text3);text-decoration:none}
+
+  /* ── SCROLL REVEAL ── */
+  .reveal{opacity:0;transform:translateY(24px);transition:opacity .6s ease,transform .6s ease}
+  .reveal.visible{opacity:1;transform:none}
+  .nav-links a.active{color:var(--accent)}
+  .nav-links a.active::after{width:100%}
+</style>
+</head>
+<body>
+
+<nav id="navbar">
+  <a href="#home" class="nav-logo">
+    <svg class="nav-logo-icon" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="18" cy="18" r="17" stroke="rgba(79,156,249,0.3)" stroke-width="1"/>
+      <ellipse cx="18" cy="18" rx="14" ry="7" stroke="#4f9cf9" stroke-width="1.5" fill="none" transform="rotate(-35 18 18)"/>
+      <ellipse cx="18" cy="18" rx="14" ry="7" stroke="#c8a96e" stroke-width="1.2" fill="none" transform="rotate(35 18 18)"/>
+      <circle cx="18" cy="18" r="2.5" fill="#4f9cf9"/>
+    </svg>
+    <span class="nav-logo-text">NAJMS <span>SYSTEMS</span></span>
+  </a>
+  
+  <div class="nav-right-container">
+    <ul class="nav-links">
+      <li><a href="#home" data-i18n="nav-home">Əsas səhifə</a></li>
+      <li><a href="#services" data-i18n="nav-services">Xidmətlərimiz</a></li>
+      <li><a href="#contact" data-i18n="nav-contact">Əlaqə</a></li>
+    </ul>
+
+    <div class="lang-switcher">
+      <button class="lang-btn active" onclick="switchLanguage('az')">AZ</button>
+      <button class="lang-btn" onclick="switchLanguage('en')">EN</button>
+    </div>
+  </div>
+</nav>
+
+<section id="home">
+  <div class="hero-bg"></div>
+  <div class="stars" id="stars"></div>
+
+  <svg class="hero-orbital" viewBox="0 0 220 220" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <circle cx="110" cy="110" r="95" stroke="rgba(79,156,249,0.07)" stroke-width="1"/>
+    <ellipse class="orbital-ring" style="--spd:14s;--rev:normal" cx="110" cy="110" rx="80" ry="36" stroke="url(#blueGrad)" stroke-width="2" transform="rotate(-30 110 110)"/>
+    <ellipse class="orbital-ring" style="--spd:10s;--rev:reverse" cx="110" cy="110" rx="80" ry="36" stroke="url(#goldGrad)" stroke-width="1.5" transform="rotate(30 110 110)"/>
+    <circle cx="110" cy="110" r="4" fill="#4f9cf9"/>
+    <defs>
+      <linearGradient id="blueGrad" x1="0" y1="0" x2="1" y2="0">
+        <stop offset="0%" stop-color="#4f9cf9" stop-opacity="0"/><stop offset="50%" stop-color="#4f9cf9" stop-opacity="1"/>
+      </linearGradient>
+      <linearGradient id="goldGrad" x1="0" y1="0" x2="1" y2="0">
+        <stop offset="0%" stop-color="#c8a96e" stop-opacity="0"/><stop offset="50%" stop-color="#c8a96e" stop-opacity="1"/>
+      </linearGradient>
+    </defs>
+  </svg>
+
+  <div class="hero-content">
+    <p class="hero-eyebrow">IT Solutions &nbsp;|&nbsp; Innovation</p>
+    <h1 class="hero-title">
+      <span class="gold-word">Najms</span> <span class="star-word">Systems</span><br/>
+      <span data-i18n="hero-headline">Peşəkar innovasiya</span>
+    </h1>
+    <p class="hero-sub" data-i18n="hero-sub">Biznesinizin fasiləsiz və yüksək keyfiyyətlə işləməsini təmin etmək üçün tam xidmətli helpdesk dəstəyi, şəbəkə infrastrukturu və bənzər xidmətləri təqdim edirik.</p>
+    <a href="#services" class="hero-cta">
+      <span data-i18n="hero-btn">Xidmətlərimizi kəşf et</span>
+    </a>
+  </div>
+</section>
+
+<section id="services">
+  <div class="services-inner">
+    <div class="section-eyebrow reveal" data-i18n="services-eyebrow">Nə edirik?</div>
+    <h2 class="section-title reveal" data-i18n="services-title">Xidmətlərimiz</h2>
+    <div class="divider reveal"></div>
+    <p class="section-lead reveal" data-i18n="services-lead">Gündəlik helpdesk müraciətlərindən tutmuş tam infrastruktur layihələrinə qədər, sizə operativ və peşəkar IT dəstəyi ilə hərtərəfli xidmət göstəririk.</p>
+
+    <div class="services-grid">
+      <div class="service-card reveal">
+        <div class="service-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+        </div>
+        <h3 data-i18n="s1-title">IT Helpdesk Dəstəyi</h3>
+        <p data-i18n="s1-desc">Komandanız üçün birinci və ikinci səviyyəli texniki dəstək. Ticket idarəetməsi, uzaqdan yardım və ehtiyac olduqda yerində xidmət.</p>
+      </div>
+
+      <div class="service-card reveal">
+        <div class="service-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+        </div>
+        <h3 data-i18n="s2-title">Şəbəkə & İnfrastruktur</h3>
+        <p data-i18n="s2-desc">Hər ölçülü biznes üçün LAN/WAN, Wi-Fi, firewall və VPN həllərinin layihələndirilməsi, qurulması və monitorinqi.</p>
+      </div>
+
+      <div class="service-card reveal">
+        <div class="service-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"/></svg>
+        </div>
+        <h3 data-i18n="s3-title">Bulud Həlləri</h3>
+        <p data-i18n="s3-desc">Microsoft 365, Azure və ya AWS-ə miqrasiya. Bulud mühitinizi sıfır kəsinti ilə planlaşdırır, köçürür və idarə edirik.</p>
+      </div>
+
+      <div class="service-card reveal">
+        <div class="service-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        </div>
+        <h3 data-i18n="s4-title">Kibertəhlükəsizlik</h3>
+        <p data-i18n="s4-desc">Son nöqtə qorunması (endpoint protection), boşluqların qiymətləndirilməsi, təhlükəsizlik təlimləri və insidentlərə reaksiya planlaması.</p>
+      </div>
+
+      <div class="service-card reveal">
+        <div class="service-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4.03 3-9 3S3 13.66 3 12"/><path d="M3 5v14c0 1.66 4.03 3 9 3s9-1.34 9-3V5"/></svg>
+        </div>
+        <h3 data-i18n="s5-title">Data Ehtiyat nüsxəsi & Bərpa</h3>
+        <p data-i18n="s5-desc">Kritik biznes məlumatlarınızı qorumaq üçün avtomatlaşdırılmış ehtiyat nüsxə strategiyaları və sınaqdan keçirilmiş bərpa planları.</p>
+      </div>
+
+      <div class="service-card reveal">
+        <div class="service-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M4.93 4.93a10 10 0 0 0 0 14.14"/></svg>
+        </div>
+        <h3 data-i18n="s6-title">İdarə Olunan IT Xidmətləri</h3>
+        <p data-i18n="s6-desc">Proaktiv monitorinq, yenilənmələrin idarə edilməsi və sistem sağlamlıq yoxlamaları — hamısı sabit aylıq plan daxilinde.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="section-eyebrow reveal" data-i18n="contact-eyebrow">Əlaqəyə keçmək üçün</div>
+  <h2 class="section-title reveal" data-i18n="contact-title">Əlaqə</h2>
+  <div class="divider reveal"></div>
+
+  <div class="contact-grid">
+    <div class="contact-info reveal">
+      <p data-i18n="contact-lead">Sualınız var və ya dəstəyə ehtiyacınız var? Formu doldurun və komandamız bir iş saatı ərzində sizinlə əlaqə saxlayacaq.</p>
+
+      <div class="contact-detail">
+        <div class="contact-detail-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        </div>
+        <div class="contact-detail-text">
+          <strong data-i18n="c-address">Əsas adres</strong>
+          <span data-i18n="c-city">Bakı şəhəri</span>
+        </div>
+      </div>
+
+      <div class="contact-detail">
+        <div class="contact-detail-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M22 16.92v3a2 2 0 0 1-2.18 2A19.79 19.79 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 1.27h3a2 2 0 0 1 2 1.72"/></svg>
+        </div>
+        <div class="contact-detail-text">
+          <strong data-i18n="c-phone">Əlaqə nömrəsi</strong>
+          <span>+99450xxxxx</span>
+        </div>
+      </div>
+
+      <div class="contact-detail">
+        <div class="contact-detail-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        </div>
+        <div class="contact-detail-text">
+          <strong data-i18n="c-mail">Mail adresi</strong>
+          <span>support@najmssystems.com</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="contact-form reveal">
+      <div class="form-row">
+        <div class="form-group"><label data-i18n="f-name">Ad</label><input type="text"/></div>
+        <div class="form-group"><label data-i18n="f-surname">Soyad</label><input type="text"/></div>
+      </div>
+      <div class="form-group"><label data-i18n="f-email">Mail</label><input type="email"/></div>
+      <div class="form-group"><label data-i18n="f-company">Şirkət adı</label><input type="text"/></div>
+      <div class="form-group">
+        <label data-i18n="f-service">Seçilən Xidmət</label>
+        <select id="service-select"></select>
+      </div>
+      <div class="form-group"><label data-i18n="f-msg">Mesajınız</label><textarea id="f-msg-input" rows="4"></textarea></div>
+      <button class="btn-submit" type="button" data-i18n="f-submit">Mesaj Göndər</button>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <span style="font-family:'Plus Jakarta Sans',sans-serif;font-size:1rem;font-weight:700;color:var(--text)">NAJMS SYSTEMS</span>
+        <p data-i18n="foot-brand-text">Güvənli IT həlləri və davamlı innovasiyalar vasitəsilə biznesinizi gücləndiririk.</p>
+      </div>
+
+      <div class="footer-col">
+        <h4 data-i18n="foot-col1-title">Şirkət</h4>
+        <ul>
+          <li><a href="#home" data-i18n="foot-home">Ana Səhifə</a></li>
+          <li><a href="#" data-i18n="foot-about">Haqqımızda</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4 data-i18n="foot-col2-title">Xidmətlər</h4>
+        <ul>
+          <li><a href="#services">Helpdesk Dəstəyi</a></li>
+          <li><a href="#services">Şəbəkə & İnfra</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4 data-i18n="foot-col3-title">Dəstək</h4>
+        <ul>
+          <li><a href="#contact" data-i18n="foot-contact">Bizimlə Əlaqə</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <p data-i18n="foot-copy">© 2025 Najms Systems. Bütün hüquqlar qorunur.</p>
+      <div class="footer-legal">
+        <a href="#" data-i18n="foot-privacy">Məxfilik Siyasəti</a>
+        <a href="#" data-i18n="foot-terms">İstifadə Şərtləri</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // ── MULTI-LANGUAGE DICTIONARY ──
+  const translations = {
+    az: {
+      "nav-home": "Əsas səhifə", "nav-services": "Xidmətlərimiz", "nav-contact": "Əlaqə",
+      "hero-headline": "Peşəkar innovasiya", "hero-sub": "Biznesinizin fasiləsiz və yüksək keyfiyyətlə işləməsini təmin etmək üçün tam xidmətli helpdesk dəstəyi, şəbəkə infrastrukturu və bənzər xidmətləri təqdim edirik.", "hero-btn": "Xidmətlərimizi kəşf et",
+      "services-eyebrow": "Nə edirik?", "services-title": "Xidmətlərimiz", "services-lead": "Gündəlik helpdesk müraciətlərindən tutmuş tam infrastruktur layihələrinə qədər, sizə operativ və peşəkar IT dəstəyi ilə hərtərəfli xidmət göstəririk.",
+      "s1-title": "IT Helpdesk Dəstəyi", "s1-desc": "Komandanız üçün birinci və ikinci səviyyəli texniki dəstək. Ticket idarəetməsi, uzaqdan yardım və ehtiyac olduqda yerində xidmət.",
+      "s2-title": "Şəbəkə & İnfrastruktur", "s2-desc": "Hər ölçülü biznes üçün LAN/WAN, Wi-Fi, firewall və VPN həllərinin layihələndirilməsi, qurulması və monitorinqi.",
+      "s3-title": "Bulud Həlləri", "s3-desc": "Microsoft 365, Azure və ya AWS-ə miqrasiya. Bulud mühitinizi sıfır kəsinti ilə planlaşdırır, köçürür və idarə edirik.",
+      "s4-title": "Kibertəhlükəsizlik", "s4-desc": "Son nöqtə qorunması (endpoint protection), boşluqların qiymətləndirlezilməsi, təhlükəsizlik təlimləri və insidentlərə reaksiya planlaması.",
+      "s5-title": "Data Ehtiyat nüsxəsi & Bərpa", "s5-desc": "Kritik biznes məlumatlarınızı qorumaq üçün avtomatlaşdırılmış ehtiyat nüsxə strategiyaları və sınaqdan keçirilmiş bərpa planları.",
+      "s6-title": "İdarə Olunan IT Xidmətləri", "s6-desc": "Proaktiv monitorinq, yenilənmələrin idarə edilməsi və sistem sağlamlıq yoxlamaları — hamısı sabit aylıq plan daxilində.",
+      "contact-eyebrow": "Əlaqəyə keçmək üçün", "contact-title": "Əlaqə", "contact-lead": "Sualınız var və ya dəstəyə ehtiyacınız var? Formu doldurun və komandamız bir iş saatı ərzində sizinlə əlaqə saxlayacaq.",
+      "c-address": "Əsas adres", "c-city": "Bakı şəhəri", "c-phone": "Əlaqə nömrəsi", "c-mail": "Mail adresi",
+      "f-name": "Ad", "f-surname": "Soyad", "f-email": "Mail", "f-company": "Şirkət adı", "f-service": "Seçilən Xidmət", "f-msg": "Mesajınız", "f-submit": "Mesaj Göndər",
+      "foot-brand-text": "Güvənli IT həlləri və davamlı innovasiyalar vasitəsilə biznesinizi gücləndiririk.",
+      "foot-col1-title": "Şirkət", "foot-home": "Ana Səhifə", "foot-about": "Haqqımızda", "foot-col2-title": "Xidmətlər", "foot-col3-title": "Dəstək", "foot-contact": "Bizimlə Əlaqə",
+      "foot-copy": "© 2025 Najms Systems. Bütün hüquqlar qorunur.", "foot-privacy": "Məxfilik Siyasəti", "foot-terms": "İstifadə Şərtləri",
+      "alert-text": "Müraciət çoxluğu səbəbi ilə form müvəqqəti dayandırılıb. Zəhmət olmasa Whatsapp və ya Email adressləri ilə əlaqə saxlayın.",
+      "placeholder-msg": "Sorğunuzu və ya probleminizi təsvir edin...", "select-default": "Xidmət seçin..."
+    },
+    en: {
+      "nav-home": "Home", "nav-services": "Services", "nav-contact": "Contact",
+      "hero-headline": "Professional Innovation", "hero-sub": "We provide full-service helpdesk support, network infrastructure, and similar services to ensure your business operations run smoothly and with high quality.", "hero-btn": "Discover Our Services",
+      "services-eyebrow": "What We Do?", "services-title": "Our Services", "services-lead": "From daily helpdesk tickets to full infrastructure projects, we serve you comprehensively with prompt and professional IT support.",
+      "s1-title": "IT Helpdesk Support", "s1-desc": "First- and second-line support for your team. Ticket management, remote assistance, and on-site visits when needed.",
+      "s2-title": "Network & Infrastructure", "s2-desc": "Design, deployment, and monitoring of LAN/WAN, Wi-Fi, firewalls, and VPN solutions for businesses of all sizes.",
+      "s3-title": "Cloud Solutions", "s3-desc": "Migration to Microsoft 365, Azure, or AWS. We plan, migrate, and manage your cloud environment with zero downtime.",
+      "s4-title": "Cybersecurity", "s4-desc": "Endpoint protection, vulnerability assessments, security awareness training, and incident response planning.",
+      "s5-title": "Data Backup & Recovery", "s5-desc": "Automated backup strategies and tested disaster recovery plans to safeguard your critical business data.",
+      "s6-title": "Managed IT Services", "s6-desc": "Proactive monitoring, patch management, and system health checks — all under a predictable monthly plan.",
+      "contact-eyebrow": "Get In Touch", "contact-title": "Contact Us", "contact-lead": "Have a question or need support? Fill out the form and our team will get back to you within one business hour.",
+      "c-address": "Main Address", "c-city": "Baku City", "c-phone": "Phone Number", "c-mail": "Email Address",
+      "f-name": "First Name", "f-surname": "Last Name", "f-email": "Email", "f-company": "Company Name", "f-service": "Service Needed", "f-msg": "Your Message", "f-submit": "Send Message",
+      "foot-brand-text": "Empowering businesses through reliable IT solutions and continuous innovation.",
+      "foot-col1-title": "Company", "foot-home": "Home", "foot-about": "About Us", "foot-col2-title": "Services", "foot-col3-title": "Support", "foot-contact": "Contact Us",
+      "foot-copy": "© 2025 Najms Systems. All rights reserved.", "foot-privacy": "Privacy Policy", "foot-terms": "Terms of Service",
+      "alert-text": "Due to a high volume of requests, the form is temporarily suspended. Please contact us via Whatsapp or Email.",
+      "placeholder-msg": "Describe your issue or inquiry...", "select-default": "Select a service..."
+    }
+  };
+
+  const servicesOptions = {
+    az: ["IT Helpdesk Dəstəyi", "Şəbəkə & İnfrastruktur", "Bulud Həlləri", "Kibertəhlükəsizlik", "Data Ehtiyat nüsxəsi & Bərpa", "İdarə Olunan IT Xidmətləri", "Digər"],
+    en: ["IT Helpdesk Support", "Network & Infrastructure", "Cloud Solutions", "Cybersecurity", "Data Backup & Recovery", "Managed IT Services", "Other"]
+  };
+
+  let currentLang = localStorage.getItem('preferredLang') || 'az';
+
+  function switchLanguage(lang) {
+    currentLang = lang;
+    localStorage.setItem('preferredLang', lang);
+    document.documentElement.lang = lang;
+
+    document.querySelectorAll('.lang-btn').forEach(btn => {
+      btn.classList.toggle('active', btn.getAttribute('onclick').includes(`'${lang}'`));
+    });
+
+    document.querySelectorAll('[data-i18n]').forEach(el => {
+      const key = el.getAttribute('data-i18n');
+      if (translations[lang][key]) el.innerText = translations[lang][key];
+    });
+
+    const selectEl = document.getElementById('service-select');
+    if (selectEl) {
+      selectEl.innerHTML = `<option value="" disabled selected>${translations[lang]['select-default']}</option>`;
+      servicesOptions[lang].forEach(opt => {
+        const option = document.createElement('option');
+        option.textContent = opt;
+        selectEl.appendChild(option);
+      });
+    }
+
+    const textareaEl = document.getElementById('f-msg-input');
+    if(textareaEl) textareaEl.placeholder = translations[lang]['placeholder-msg'];
+  }
+
+  document.addEventListener("DOMContentLoaded", () => { switchLanguage(currentLang); });
+
+  // ── STARS ──
+  const starsEl = document.getElementById('stars');
+  for(let i=0;i<70;i++){
+    const s=document.createElement('div');
+    s.className='star';
+    const size=Math.random()<0.3?1.5:1;
+    s.style.cssText=`width:${size}px;height:${size}px;top:${Math.random()*100}%;left:${Math.random()*100}%;--d:${2+Math.random()*5}s;--del:${Math.random()*6}s;--op:${0.3+Math.random()*0.7}`;
+    starsEl.appendChild(s);
+  }
+
+  // ── REVEAL & NAV ACTIVE ──
+  const reveals=document.querySelectorAll('.reveal');
+  const io=new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible')}});
+  },{threshold:0.05});
+  reveals.forEach(el=>io.observe(el));
+
+  const sections=document.querySelectorAll('section[id]');
+  const navAs=document.querySelectorAll('.nav-links a');
+  window.addEventListener('scroll',()=>{
+    let cur='';
+    sections.forEach(s=>{ if(window.scrollY>=s.offsetTop-140) cur=s.id; });
+    navAs.forEach(a=>{ a.classList.toggle('active',a.getAttribute('href')==='#'+cur); });
+  },{passive:true});
+
+  // ── FORM ALERT ──
+  document.querySelector('.btn-submit').addEventListener('click', function(e) {
+    e.preventDefault();
+    if(document.querySelector('.form-alert-popup')) return;
+    const alertBox = document.createElement('div');
+    alertBox.className = 'form-alert-popup';
+    alertBox.innerText = translations[currentLang]['alert-text'];
+    document.body.appendChild(alertBox);
+    setTimeout(() => alertBox.classList.add('show'), 50);
+    setTimeout(() => {
+      alertBox.classList.remove('show');
+      setTimeout(() => alertBox.remove(), 400);
+    }, 4000);
+  });
+</script>
+</body>
+</html>
