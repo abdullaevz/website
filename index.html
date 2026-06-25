@@ -297,6 +297,41 @@
   }
   .service-card p{font-size:.92rem;color:var(--text2);line-height:1.6}
 
+  /* ── SERVICE PACKAGES & EXTRA SERVICES (ADDED FROM DOC) ── */
+  #service-packages { background: var(--navy); max-width: 100%; padding: 100px 5%; border-top: 1px solid var(--border); }
+  .packages-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 32px; margin-bottom: 5rem; }
+  .package-card { background: var(--card); border: 1px solid var(--border); border-radius: 20px; padding: 2.5rem 2rem; position: relative; display: flex; flex-direction: column; transition: transform .3s, border-color .3s; }
+  .package-card:hover { transform: translateY(-8px); border-color: rgba(200, 169, 110, 0.4); }
+  .package-card.premium { border-color: rgba(200, 169, 110, 0.3); background: linear-gradient(145deg, rgba(22,38,69,0.8), rgba(15,30,56,0.6)); }
+  .package-card.premium::after { content: 'PREMIUM'; position: absolute; top: 15px; right: 20px; background: var(--gold); color: var(--navy); font-size: 0.65rem; font-weight: 800; padding: 4px 10px; border-radius: 20px; letter-spacing: 0.05em; }
+  .package-badge { color: var(--accent); font-size: 0.75rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 0.5rem; }
+  .package-card.premium .package-badge { color: var(--gold); }
+  .package-title { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 1.6rem; font-weight: 700; color: var(--text); margin-bottom: 0.2rem; }
+  .package-subtitle { font-size: 0.88rem; color: var(--text2); margin-bottom: 1.5rem; min-height: 44px; }
+  .package-price { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 2rem; font-weight: 800; color: var(--text); margin-bottom: 0.2rem; display: flex; align-items: baseline; gap: 6px; }
+  .package-price span { font-size: 0.9rem; font-weight: 500; color: var(--text2); }
+  .package-target { font-size: 0.82rem; color: var(--gold); font-weight: 500; margin-bottom: 2rem; background: rgba(200, 169, 110, 0.08); padding: 6px 12px; border-radius: 6px; display: inline-block; width: fit-content; }
+  .package-card.premium .package-target { color: var(--accent2); background: rgba(79,156,249,0.08); }
+  .package-features { list-style: none; display: flex; flex-direction: column; gap: 0.8rem; margin-bottom: 2.5rem; flex-grow: 1; }
+  .package-features li { font-size: 0.9rem; color: var(--text2); display: flex; gap: 10px; align-items: flex-start; }
+  .package-features li strong { color: var(--text); font-weight: 500; }
+  .package-features li::before { content: '✓'; color: var(--accent); font-weight: 700; }
+  .package-card.premium .package-features li::before { content: '★'; color: var(--gold); }
+  
+  .extra-services-container { background: var(--card); border: 1px solid var(--border); border-radius: 20px; padding: 2.5rem; max-width: 1100px; margin: 0 auto; }
+  .extra-table-wrapper { overflow-x: auto; }
+  .extra-table { width: 100%; border-collapse: collapse; text-align: left; font-size: 0.92rem; }
+  .extra-table th { font-family: 'Plus Jakarta Sans', sans-serif; text-transform: uppercase; font-size: 0.75rem; letter-spacing: 0.08em; padding: 14px 16px; color: var(--gold); border-bottom: 2px solid var(--border); }
+  .extra-table td { padding: 16px; border-bottom: 1px solid rgba(79,156,249,0.08); color: var(--text2); vertical-align: top; }
+  .extra-table tr:last-child td { border-bottom: none; }
+  .extra-table td strong { color: var(--text); font-weight: 600; }
+  .extra-price { color: var(--accent); font-weight: 600; white-space: nowrap; }
+
+  @media(max-width: 768px) {
+    .extra-services-container { padding: 1.5rem; }
+    .extra-table th, .extra-table td { padding: 12px; font-size: 0.88rem; }
+  }
+
   /* ── CONTACT ── */
   #contact{background:var(--navy); max-width:1200px;}
   .contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:start;margin-top:1rem}
@@ -546,6 +581,120 @@
   </div>
 </section>
 
+<!-- XİDMƏTLƏRDƏN DƏRHAL SONRA ƏLAVƏ OLUNAN HİSSƏ (XİDMƏT PAKETLƏRİ) -->
+<section id="service-packages">
+  <div class="services-inner">
+    <div class="section-eyebrow reveal" data-i18n="pkg-eyebrow">Sizə Uyğun Seçim</div>
+    <h2 class="section-title reveal" data-i18n="pkg-title">Xidmət Paketləri</h2>
+    <div class="divider reveal"></div>
+    <p class="section-lead reveal" data-i18n="pkg-lead">Hər ölçülü biznes üçün hazırlanmış, şəffaf qiymətləndirmə və peşəkar IT partnyorluğu təklif edən paketlərimiz.</p>
+
+    <div class="packages-grid">
+      <!-- ORBIT -->
+      <div class="package-card reveal">
+        <div class="package-badge">📦 Orbit</div>
+        <h3 class="package-title">ORBIT</h3>
+        <p class="package-subtitle" data-i18n="pkg-orbit-sub">Kiçik ofislər üçün etibarlı IT dəstək</p>
+        <div class="package-price">400 – 600 <span>AZN / <span data-i18n="pkg-month">aylıq</span></span></div>
+        <div class="package-target"><span data-i18n="pkg-target-label">Hədəf:</span> 5 – 20 <span data-i18n="pkg-employees">işçi</span></div>
+        <ul class="package-features">
+          <li data-i18n="pkg-orbit-f1"><strong>Uzaqdan Dəstək:</strong> Aylıq 20 saata qədər kompüter, proqram, şəbəkə həlli</li>
+          <li data-i18n="pkg-orbit-f2"><strong>Cavab Vaxtı:</strong> İş günləri 4 iş saatı ərzində</li>
+          <li data-i18n="pkg-orbit-f3"><strong>Antivirus:</strong> Quraşdırma və idarəetmə (lisenziya ayrıca)</li>
+          <li data-i18n="pkg-orbit-f4"><strong>Hesabat:</strong> Aylıq texniki hesabat</li>
+          <li data-i18n="pkg-orbit-f5"><strong>Email / Mesaj Dəstəyi:</strong> WhatsApp / Email vasitəsilə sorğu</li>
+        </ul>
+      </div>
+
+      <!-- NOVA -->
+      <div class="package-card reveal">
+        <div class="package-badge">🚀 Nova</div>
+        <h3 class="package-title">NOVA</h3>
+        <p class="package-subtitle" data-i18n="pkg-nova-sub">Böyüməkdə olan şirkətlər üçün tam IT idarəetməsi</p>
+        <div class="package-price">900 – 1400 <span>AZN / <span data-i18n="pkg-month">aylıq</span></span></div>
+        <div class="package-target"><span data-i18n="pkg-target-label">Hədəf:</span> 20 – 60 <span data-i18n="pkg-employees">işçi</span></div>
+        <ul class="package-features">
+          <li data-i18n="pkg-nova-f1"><strong>Orbit (Tam):</strong> Paketinin bütün xidmətləri daxildir</li>
+          <li data-i18n="pkg-nova-f2"><strong>Sahəyə Çıxış:</strong> Aylıq 2 dəfə ofisə gəliş (Bakı daxili)</li>
+          <li data-i18n="pkg-nova-f3"><strong>Server İdarəetməsi:</strong> Windows / Linux server monitorinqi</li>
+          <li data-i18n="pkg-nova-f4"><strong>Active Directory & GP:</strong> İstifadəçi idarəetməsi və mərkəzi siyasət</li>
+          <li data-i18n="pkg-nova-f5"><strong>Şəbəkə Monitorinqi:</strong> 24/7 avtomatik xəbərdarlıq sistemi</li>
+          <li data-i18n="pkg-nova-f6"><strong>Cavab Vaxtı:</strong> 2 iş saatı ərzində (kritik hallarda 1 saat)</li>
+        </ul>
+      </div>
+
+      <!-- SIRIUS -->
+      <div class="package-card premium reveal">
+        <div class="package-badge">⭐ Sirius</div>
+        <h3 class="package-title">SIRIUS</h3>
+        <p class="package-subtitle" data-i18n="pkg-sirius-sub">Müəssisə səviyyəli tam IT partnyorluğu</p>
+        <div class="package-price">2000 – 3000 <span>AZN / <span data-i18n="pkg-month">aylıq</span></span></div>
+        <div class="package-target"><span data-i18n="pkg-target-label">Hədəf:</span> 60+ <span data-i18n="pkg-employees">işçi / korporativ</span></div>
+        <ul class="package-features">
+          <li data-i18n="pkg-sirius-f1"><strong>Nova (Tam):</strong> Paketinin bütün xidmətləri daxildir</li>
+          <li data-i18n="pkg-sirius-f2"><strong>Bulud İnteqrasiyası:</strong> M365 / Google Workspace quraşdırma</li>
+          <li data-i18n="pkg-sirius-f3"><strong>Backup Həlləri:</strong> Avtomatik yedəkləmə (lokal + bulud)</li>
+          <li data-i18n="pkg-sirius-f4"><strong>IT Audit & Güvənlik:</strong> İllik tam audit və Firewall tənzimləmələri</li>
+          <li data-i18n="pkg-sirius-f5"><strong>Sahəyə Çıxış:</strong> Həftəlik bir ziyarət (Bakı daxili)</li>
+          <li data-i18n="pkg-sirius-f6"><strong>SLA Zəmanəti:</strong> Kritik problemlər üçün 1 saat cavab vaxtı</li>
+          <li data-i18n="pkg-sirius-f7"><strong>İşçi Təlimi:</strong> Rübdə bir dəfə 2 saatlıq maariflənmə</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- BİRDƏFƏLİK LAYİHƏ XİDMƏTLƏRİ -->
+    <div class="section-eyebrow reveal" style="margin-top:2rem;" data-i18n="extra-eyebrow">Ehtiyaca Özəl Layihələr</div>
+    <h3 class="section-title reveal" style="font-size:1.8rem; margin-bottom:2rem;" data-i18n="extra-title">Əlavə / Birdəfəlik Xidmətlər</h3>
+    
+    <div class="extra-services-container reveal">
+      <div class="extra-table-wrapper">
+        <table class="extra-table">
+          <thead>
+            <tr>
+              <th data-i18n="th-service">Xidmət</th>
+              <th data-i18n="th-price">Qiymət</th>
+              <th data-i18n="th-desc">Açıqlama</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong data-i18n="ex1-title">IT Audit</strong></td>
+              <td><span class="extra-price">300 – 500 AZN</span></td>
+              <td data-i18n="ex1-desc">Mövcud infrastrukturun tam yoxlanması + yazılı hesabat. Paket müqaviləsi olmayan şirkətlər üçün ideal giriş nöqtəsi.</td>
+            </tr>
+            <tr>
+              <td><strong data-i18n="ex2-title">Microsoft 365 Quraşdırma</strong></td>
+              <td><span class="extra-price">200 – 350 AZN</span></td>
+              <td data-i18n="ex2-desc">Email, Teams, SharePoint konfiqurasiyası. İstifadəçi quraşdırması, DNS tənzimlənməsi daxil.</td>
+            </tr>
+            <tr>
+              <td><strong data-i18n="ex3-title">Google Workspace Quraşdırma</strong></td>
+              <td><span class="extra-price">200 – 350 AZN</span></td>
+              <td data-i18n="ex3-desc">Gmail business, Drive, Meet konfiqurasiyası və köçürmə dəstəyi.</td>
+            </tr>
+            <tr>
+              <td><strong data-i18n="ex4-title">Şəbəkə Quraşdırması</strong></td>
+              <td><span class="extra-price" data-i18n="price-request">Sorğuya görə</span></td>
+              <td data-i18n="ex4-desc">Switch, router, WiFi, strukturlaşdırılmış kabelləmə — tam dizayn və quraşdırma.</td>
+            </tr>
+            <tr>
+              <td><strong data-i18n="ex5-title">Server Quraşdırması</strong></td>
+              <td><span class="extra-price" data-i18n="price-request">Sorğuya görə</span></td>
+              <td data-i18n="ex5-desc">Windows Server / Linux quraşdırma, konfiqurasiya, Active Directory ilk quraşdırması.</td>
+            </tr>
+            <tr>
+              <td><strong data-i18n="ex6-title">İşçi Təlimi</strong></td>
+              <td><span class="extra-price">150 AZN / <span data-i18n="price-session">sessiya</span></span></td>
+              <td data-i18n="ex6-desc">Kibertəhlükəsizlik, Microsoft 365 istifadəsi, ümumi IT savadlılığı — qrup üçün 2 saatlıq.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </div>
+</section>
+
 <section id="contact">
   <div class="section-eyebrow reveal" data-i18n="contact-eyebrow">Əlaqəyə keçmək üçün</div>
   <h2 class="section-title reveal" data-i18n="contact-title">Əlaqə</h2>
@@ -724,6 +873,57 @@
       "s5-desc": "Kritik biznes məlumatlarınızı qorumaq üçün avtomatlaşdırılmış ehtiyat nüsxə strategiyaları və sınaqdan keçirilmiş bərpa planları.",
       "s6-title": "İdarə Olunan IT Xidmətləri",
       "s6-desc": "Proaktiv monitorinq, yenilənmələrin idarə edilməsi və sistem sağlamlıq yoxlamaları — hamısı sabit aylıq plan daxilində.",
+      
+      // Yeni Əlavə Edilən Tərcümələr (Paketlər)
+      "pkg-eyebrow": "Sizə Uyğun Seçim",
+      "pkg-title": "Xidmət Paketləri",
+      "pkg-lead": "Hər ölçülü biznes üçün hazırlanmış, şəffaf qiymətləndirmə və peşəkar IT partnyorluğu təklif edən paketlərimiz.",
+      "pkg-month": "aylıq",
+      "pkg-target-label": "Hədəf:",
+      "pkg-employees": "işçi",
+      "pkg-orbit-sub": "Kiçik ofislər üçün etibarlı IT dəstək",
+      "pkg-orbit-f1": "<strong>Uzaqdan Dəstək:</strong> Aylıq 20 saata qədər kompüter, proqram, şəbəkə həlli",
+      "pkg-orbit-f2": "<strong>Cavab Vaxtı:</strong> İş günləri 4 iş saatı ərzində",
+      "pkg-orbit-f3": "<strong>Antivirus:</strong> Quraşdırma və idarəetmə (lisenziya ayrıca)",
+      "pkg-orbit-f4": "<strong>Hesabat:</strong> Aylıq texniki hesabat",
+      "pkg-orbit-f5": "<strong>Email / Mesaj Dəstəyi:</strong> WhatsApp / Email vasitəsilə sorğu",
+      "pkg-nova-sub": "Böyüməkdə olan şirkətlər üçün tam IT idarəetməsi",
+      "pkg-nova-f1": "<strong>Orbit (Tam):</strong> Paketinin bütün xidmətləri daxildir",
+      "pkg-nova-f2": "<strong>Sahəyə Çıxış:</strong> Aylıq 2 dəfə ofisə gəliş (Bakı daxili)",
+      "pkg-nova-f3": "<strong>Server İdarəetməsi:</strong> Windows / Linux server monitorinqi",
+      "pkg-nova-f4": "<strong>Active Directory & GP:</strong> İstifadəçi idarəetməsi və mərkəzi siyasət",
+      "pkg-nova-f5": "<strong>Şəbəkə Monitorinqi:</strong> 24/7 avtomatik xəbərdarlıq sistemi",
+      "pkg-nova-f6": "<strong>Cavab Vaxtı:</strong> 2 iş saatı ərzində (kritik hallarda 1 saat)",
+      "pkg-sirius-sub": "Müəssisə səviyyəli tam IT partnyorluğu",
+      "pkg-sirius-f1": "<strong>Nova (Tam):</strong> Paketinin bütün xidmətləri daxildir",
+      "pkg-sirius-f2": "<strong>Bulud İnteqrasiyası:</strong> M365 / Google Workspace quraşdırma",
+      "pkg-sirius-f3": "<strong>Backup Həlləri:</strong> Avtomatik yedəkləmə (lokal + bulud)",
+      "pkg-sirius-f4": "<strong>IT Audit & Güvənlik:</strong> İllik tam audit və Firewall tənzimləmələri",
+      "pkg-sirius-f5": "<strong>Sahəyə Çıxış:</strong> Həftəlik bir ziyarət (Bakı daxili)",
+      "pkg-sirius-f6": "<strong>SLA Zəmanəti:</strong> Kritik problemlər üçün 1 saat cavab vaxtı",
+      "pkg-sirius-f7": "<strong>İşçi Təlimi:</strong> Rübdə bir dəfə 2 saatlıq maariflənmə",
+      
+      // Əlavə Xidmətlər Cədvəli
+      "extra-eyebrow": "Ehtiyaca Özəl Layihələr",
+      "extra-title": "Əlavə / Birdəfəlik Xidmətlər",
+      "th-service": "Xidmət",
+      "th-price": "Qiymət",
+      "th-desc": "Açıqlama",
+      "price-request": "Sorğuya görə",
+      "price-session": "sessiya",
+      "ex1-title": "IT Audit",
+      "ex1-desc": "Mövcud infrastrukturun tam yoxlanması + yazılı hesabat. Paket müqaviləsi olmayan şirkətlər üçün ideal giriş nöqtəsi.",
+      "ex2-title": "Microsoft 365 Quraşdırma",
+      "ex2-desc": "Email, Teams, SharePoint konfiqurasiyası. İstifadəçi quraşdırması, DNS tənzimlənməsi daxil.",
+      "ex3-title": "Google Workspace Quraşdırma",
+      "ex3-desc": "Gmail business, Drive, Meet konfiqurasiyası və köçürmə dəstəyi.",
+      "ex4-title": "Şəbəkə Quraşdırması",
+      "ex4-desc": "Switch, router, WiFi, strukturlaşdırılmış kabelləmə — tam dizayn və quraşdırma.",
+      "ex5-title": "Server Quraşdırması",
+      "ex5-desc": "Windows Server / Linux quraşdırma, konfiqurasiya, Active Directory ilk quraşdırması.",
+      "ex6-title": "İşçi Təlimi",
+      "ex6-desc": "Kibertəhlükəsizlik, Microsoft 365 istifadəsi, ümumi IT savadlılığı — qrup üçün 2 saatlıq.",
+
       "contact-eyebrow": "Əlaqəyə keçmək üçün",
       "contact-title": "Əlaqə",
       "contact-lead": "Sualınız var və ya dəstəyə ehtiyacınız var? Formu doldurun və komandamız bir iş saatı ərzində sizinlə əlaqə saxlayacaq.",
@@ -784,6 +984,57 @@
       "s5-desc": "Automated backup strategies and tested disaster recovery plans to safeguard your critical business data.",
       "s6-title": "Managed IT Services",
       "s6-desc": "Proactive monitoring, patch management, and system health checks — all under a predictable monthly plan.",
+      
+      // Packages (EN)
+      "pkg-eyebrow": "The Right Choice For You",
+      "pkg-title": "Service Packages",
+      "pkg-lead": "Tailored packages designed for businesses of all sizes, offering transparent pricing and professional IT partnership.",
+      "pkg-month": "month",
+      "pkg-target-label": "Target:",
+      "pkg-employees": "employees",
+      "pkg-orbit-sub": "Reliable IT support for small offices",
+      "pkg-orbit-f1": "<strong>Remote Support:</strong> Up to 20 hours/month computer, software, network fixes",
+      "pkg-orbit-f2": "<strong>Response Time:</strong> Within 4 business hours",
+      "pkg-orbit-f3": "<strong>Antivirus:</strong> Installation and management (license extra)",
+      "pkg-orbit-f4": "<strong>Reporting:</strong> Monthly technical status report",
+      "pkg-orbit-f5": "<strong>Email / Message Support:</strong> Request intake via WhatsApp / Email",
+      "pkg-nova-sub": "Complete IT management for growing companies",
+      "pkg-nova-f1": "<strong>Orbit (Full):</strong> All services from the ORBIT package included",
+      "pkg-nova-f2": "<strong>On-site Visit:</strong> 2 visits per month (within Baku)",
+      "pkg-nova-f3": "<strong>Server Management:</strong> Windows / Linux server monitoring & support",
+      "pkg-nova-f4": "<strong>Active Directory & GP:</strong> User management and central policy configuration",
+      "pkg-nova-f5": "<strong>Network Monitoring:</strong> 24/7 automated alert system",
+      "pkg-nova-f6": "<strong>Response Time:</strong> Within 2 business hours (1 hr for critical cases)",
+      "pkg-sirius-sub": "Enterprise-level comprehensive IT partnership",
+      "pkg-sirius-f1": "<strong>Nova (Full):</strong> All services from the NOVA package included",
+      "pkg-sirius-f2": "<strong>Cloud Integration:</strong> Microsoft 365 / Google Workspace setup",
+      "pkg-sirius-f3": "<strong>Backup Solutions:</strong> Automated backup — local + cloud",
+      "pkg-sirius-f4": "<strong>IT Audit & Security:</strong> Annual full infrastructure audit & Firewall config",
+      "pkg-sirius-f5": "<strong>On-site Visit:</strong> One visit per week (within Baku)",
+      "pkg-sirius-f6": "<strong>SLA Guarantee:</strong> 1-hour response time for critical issues",
+      "pkg-sirius-f7": "<strong>Staff Training:</strong> Once a quarter 2-hour IT awareness session",
+      
+      // Extra services table (EN)
+      "extra-eyebrow": "Custom Tailored Projects",
+      "extra-title": "Extra / One-time Services",
+      "th-service": "Service",
+      "th-price": "Price",
+      "th-desc": "Description",
+      "price-request": "On Request",
+      "price-session": "session",
+      "ex1-title": "IT Audit",
+      "ex1-desc": "Full check of current infrastructure + written report. Ideal entry point for non-contract companies.",
+      "ex2-title": "Microsoft 365 Setup",
+      "ex2-desc": "Email, Teams, SharePoint configuration. User setup and DNS tuning included.",
+      "ex3-title": "Google Workspace Setup",
+      "ex3-desc": "Gmail business, Drive, Meet configuration and migration support.",
+      "ex4-title": "Network Deployment",
+      "ex4-desc": "Switch, router, WiFi, structured cabling — full design and setup.",
+      "ex5-title": "Server Deployment",
+      "ex5-desc": "Windows Server / Linux installation, configuration, initial Active Directory setup.",
+      "ex6-title": "Employee Training",
+      "ex6-desc": "Cybersecurity, Microsoft 365 usage, general IT literacy — 2 hours for a group.",
+
       "contact-eyebrow": "Get In Touch",
       "contact-title": "Contact Us",
       "contact-lead": "Have a question or need support? Fill out the form and our team will get back to you within one business hour.",
@@ -824,10 +1075,10 @@
     }
   };
 
-  // Formdakı select obyektinin içini də yeni servislərə uyğun sinxronlaşdırdım
+  // Select opsiyalarının yeni paketlərə uyğun yenilənməsi
   const servicesOptions = {
-    az: ["IT Helpdesk Dəstəyi", "Şəbəkə & İnfrastruktur", "IT Audit", "AI Həlləri & Xidmətləri", "Data Ehtiyat nüsxəsi & Bərpa", "İdarə Olunan IT Xidmətləri", "Digər"],
-    en: ["IT Helpdesk Support", "Network & Infrastructure", "IT Audit", "AI Solutions & Services", "Data Backup & Recovery", "Managed IT Services", "Other"]
+    az: ["ORBIT Paketi", "NOVA Paketi", "SIRIUS Paketi", "IT Audit layihəsi", "Microsoft 365 Quraşdırılması", "Google Workspace Quraşdırılması", "Şəbəkə Quraşdırılması", "Server Quraşdırılması", "İşçi Təlimi", "Digər"],
+    en: ["ORBIT Package", "NOVA Package", "SIRIUS Package", "IT Audit Project", "Microsoft 365 Deployment", "Google Workspace Deployment", "Network Deployment", "Server Deployment", "Employee Training", "Other"]
   };
 
   let currentLang = localStorage.getItem('preferredLang') || 'az';
@@ -844,7 +1095,7 @@
     document.querySelectorAll('[data-i18n]').forEach(el => {
       const key = el.getAttribute('data-i18n');
       if (translations[lang][key]) {
-        el.innerText = translations[lang][key];
+        el.innerHTML = translations[lang][key]; // HTML tag dəstəyi üçün innerHTML istifadə olundu
       }
     });
 
